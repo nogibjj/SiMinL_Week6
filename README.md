@@ -3,23 +3,24 @@
 # SiMinL_MiniProj5
 
 # Requirements
-Connect to a SQL database
-Perform CRUD operations (Create, Read, Update, Delete)
-Write at least two different SQL queries
-Grading Criteria 
+Design a complex SQL query involving joins, aggregation, and sorting
+Provide an explanation for what the query is doing and the expected results
 
 # Purpose 
-The purpose of this project is to create CRUD actions using SQLite and Python, and to build an ETL-query pipeline. Here, xxx is used as a sample dataset. It is converted to a .db file, and CRUD actions are conducted.
+The goal of this project is to create an ETL-Query pipeline utilizing a cloud service like Databricks. This pipeline will involve tasks such as extracting data from FiveThirtyEight's public datasets, cleaning and transforming the data, then loading it into Databricks SQL Warehouse. Once the data is in place, complex queries like joining tables, aggregating data, and sorting results can be done. This will be accomplished by establishing a database connection to Databricks.
+
 
 # Preparation
-1. Open codespaces
-2. Wait for container to be built and virtual environment to be activated with requirements.txt installed
-3.Extract: run make extract
-4. Transform and load: run make transform_load
-5. Query: run make query or alternatively write your own query using python main.py general_query <insert query>
+wait for container to be built and virtual environment to be activated with requirements.txt installed
+make an .env file to store Databricks' connection 
+extract: run make extract
+transform and load: run make transform_load
 
-# Sample CRUD Operations
-Create: python main.py create_record 'Computer Science' 'STEM' 1500 1200
-Read: python main.py read_data()
-Update: python main.py update_record 1 'Electrical Engineering' 'STEM' 2000 1500
-Delete: python main.py delete_record 1
+# Sample Complex Query
+
+
+# Databricks Screenshot
+
+
+
+

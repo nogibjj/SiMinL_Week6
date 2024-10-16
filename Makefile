@@ -9,9 +9,6 @@ format:
 	black *.py 
 
 lint:
-	#disable comment to test speed
-	#pylint --disable=R,C --ignore-patterns=test_.*?py *.py mylib/*.py
-	#ruff linting is 10-100X faster than pylint
 	ruff check *.py mylib/*.py
 
 container-lint:
@@ -45,6 +42,4 @@ extract:
 transform_load: 
 	python main.py transform_load
 
-###change the below
 query:
-	python main.py general_query "SELECT * FROM gradstudentsDB WHERE Major='CONSTRUCTION SERVICES';"
