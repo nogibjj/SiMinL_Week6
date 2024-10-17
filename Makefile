@@ -43,3 +43,4 @@ transform_load:
 	python main.py transform_load
 
 query:
+	python main.py general_query "SELECT t2.Major, t1.FOD1P, t2.women/(t2.total) as womenshare FROM default.majorsDB t1 JOIN default.womenstemDB t2 ON t1.Major = t2.Major ORDER BY womenshare DESC LIMIT 10"
