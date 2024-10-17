@@ -19,11 +19,6 @@ def load(dataset="data/majors.csv", dataset2="data/womenstem.csv"):
     server_h = os.getenv("SERVER_HOSTNAME")
     access_token = os.getenv("DATABRICKS_KEY")
     http_path = os.getenv("HTTP_PATH")
-    # # Check for missing environment variables
-    # if not all([server_h, access_token, http_path]):
-    #     raise EnvironmentError(
-    #         "Missing one or more required environment variables: SERVER_HOSTNAME, DATABRICKS_TOKEN, HTTP_PATH"
-    #     )
 
     with sql.connect(
         server_hostname=server_h,
