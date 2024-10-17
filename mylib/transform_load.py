@@ -92,3 +92,7 @@ def load(dataset="data/majors.csv", dataset2="data/womenstem.csv"):
         c.close()
 
     return "success"
+
+
+if __name__ == "__main__":
+    load()
