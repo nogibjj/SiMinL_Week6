@@ -8,30 +8,6 @@ from databricks import sql
 import pandas as pd
 
 
-# Testing if the connection works
-# def load(dataset="data/gradstudents.csv"):
-#     """Transforms and Loads data into the local databricks database"""
-#     payload = csv.reader(open(dataset, newline=""), delimiter=",")
-#     # to unwrap and see print(*payload)
-#     print(*payload)
-#     load_dotenv()
-#     with sql.connect(
-#         server_hostname=os.getenv("SERVER_HOSTNAME"),
-#         http_path=os.getenv("HTTP_PATH"),
-#         access_token=os.getenv("DATABRICKS_KEY"),
-#     ) as connection:
-#         with connection.cursor() as cursor:
-#             cursor.execute("SELECT * FROM samples.nyctaxi.trips LIMIT 2")
-#             result = cursor.fetchall()
-#             for row in result:
-#                 print(row)
-#             cursor.close()
-#             connection.close()
-
-# if __name__ == "__main__":
-#     load()
-
-
 # load the csv file and insert into databricks
 def load(dataset="data/majors.csv", dataset2="data/womenstem.csv"):
     """Transforms and Loads data into the local databricks database"""
