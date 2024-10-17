@@ -67,7 +67,10 @@ def load(dataset="data/majors.csv", dataset2="data/womenstem.csv"):
                 """
             )
             womenstem_data = [tuple(row) for _, row in df2.iterrows()]
-            insert_query2 = "INSERT INTO womenstemDB (Rank, Major, Men, Women, Total, Median) VALUES (?, ?, ?, ?, ?, ?)"
+            insert_query2 = (
+                "INSERT INTO womenstemDB (Rank, Major, Men, Women, Total, Median) "
+                "VALUES (?, ?, ?, ?, ?, ?)"
+            )
             c.executemany(insert_query2, womenstem_data)
         c.close()
     print("success")
