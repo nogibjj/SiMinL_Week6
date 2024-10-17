@@ -17,8 +17,13 @@ def load(dataset="data/majors.csv", dataset2="data/womenstem.csv"):
     df2 = df2.iloc[1:]
     load_dotenv()
     server_h = os.getenv("SERVER_HOSTNAME")
-    access_token = os.getenv("DATABRICKS_TOKEN")
+    access_token = os.getenv("DATABRICKS_KEY")
     http_path = os.getenv("HTTP_PATH")
+    # # Check for missing environment variables
+    # if not all([server_h, access_token, http_path]):
+    #     raise EnvironmentError(
+    #         "Missing one or more required environment variables: SERVER_HOSTNAME, DATABRICKS_TOKEN, HTTP_PATH"
+    #     )
 
     with sql.connect(
         server_hostname=server_h,
@@ -27,8 +32,8 @@ def load(dataset="data/majors.csv", dataset2="data/womenstem.csv"):
     ) as connection:
         c = connection.cursor()
         # INSERT TAKES TOO LONG
-        # c.execute("DROP TABLE IF EXISTS ServeTimesDB")
-        c.execute("SHOW TABLES FROM default LIKE 'majorsDB'")
+        c.execute("DROP TABLE IF EXISTS majorsDB")
+        c.execute("SHOW TABLES FROM default LIKE 'majorsDB*'")
         result = c.fetchall()
         # takes too long so not dropping anymore
         # c.execute("DROP TABLE IF EXISTS majorsDB")
@@ -36,16 +41,19 @@ def load(dataset="data/majors.csv", dataset2="data/womenstem.csv"):
             c.execute(
                 """
                 CREATE TABLE IF NOT EXISTS majorsDB (
-                    FOD1P int,
+                    FOD1P string,
                     Major string,
                     Major_Category string
                 )
             """
             )
             # insert
-            for _, row in df.iterrows():
-                convert = (_,) + tuple(row)
-                c.execute(f"INSERT INTO majorsDB VALUES {convert}")
+            majors_data = [tuple(row) for _, row in df.iterrows()]
+            insert_query = (
+                "INSERT INTO majorsDB (FOD1P, Major, Major_Category) VALUES (?, ?, ?)"
+            )
+            c.executemany(insert_query, majors_data)
+        c.execute("DROP TABLE IF EXISTS womenstemDB")
         c.execute("SHOW TABLES FROM default LIKE 'womenstemDB*'")
         result = c.fetchall()
         # c.execute("DROP TABLE IF EXISTS womenstemDB")
@@ -63,11 +71,11 @@ def load(dataset="data/majors.csv", dataset2="data/womenstem.csv"):
                 )
                 """
             )
-            for _, row in df2.iterrows():
-                convert = (_,) + tuple(row)
-                c.execute(f"INSERT INTO womenstemDB VALUES {convert}")
+            womenstem_data = [tuple(row) for _, row in df2.iterrows()]
+            insert_query2 = "INSERT INTO womenstemDB (Rank, Major, Men, Women, Total, Median) VALUES (?, ?, ?, ?, ?, ?)"
+            c.executemany(insert_query2, womenstem_data)
         c.close()
-
+    print("success")
     return "success"
 
 
